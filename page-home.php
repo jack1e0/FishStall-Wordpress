@@ -28,10 +28,6 @@ get_header(); ?>
             overflow-x: hidden;
         }
 
-        .homepage {
-            object-fit: cover;
-        }
-
         .backButton {
             position: fixed;
             z-index: 9999;
@@ -118,7 +114,7 @@ get_header(); ?>
             </div>
 
             <div class="background">
-                <video src="/wp-content/uploads/2024/01/roomToStall50fps.mov" preload="auto"></video>
+                <video src="/wp-content/uploads/2024/01/room2Stall.mov" preload="auto"></video>
             </div>
         </div>
 

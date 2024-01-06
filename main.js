@@ -24,7 +24,7 @@ let currState;
 
 function enterScene() {
     makeImgVisible('/wp-content/uploads/2024/01/room.png', () => {
-        vid.src = '/wp-content/uploads/2024/01/roomToStall50fps.mov';
+        vid.src = '/wp-content/uploads/2024/01/roomToStall.mov';
         vid.style.display = "block";
 
         $(vid).one('canplay', function () { // only hide the stall image when video is ready
@@ -102,14 +102,14 @@ backButton.addEventListener('click', back);
 
 function transitionToFish() {
     if (!toFishButton.disabled) {
-        videoTransition('/wp-content/uploads/2024/01/fishzoomin.mov', fishScene);
+        videoTransition('/wp-content/uploads/2024/01/fishZoomIn.mov', fishScene);
     }
 }
 
 toFishButton.addEventListener('click', transitionToFish);
 
 function fishScene() {
-    makeImgVisible('/wp-content/uploads/2024/01/fishzoom.png');
+    makeImgVisible('/wp-content/uploads/2024/01/fishzoom-1.png');
     stallSvg.style.display = 'none';
 
     currState = state.FISH;
@@ -120,11 +120,11 @@ function fishScene() {
 // Reverse functions
 
 function reverseFromStallToRoom() {
-    videoTransition('/wp-content/uploads/2024/01/stall2room.mov', enterScene);
+    videoTransition('/wp-content/uploads/2024/01/stallToRoom.mov', enterScene);
 }
 
 function reverseFromFishToStall() {
-    videoTransition('/wp-content/uploads/2024/01/fishzoomout.mov', stallScene);
+    videoTransition('/wp-content/uploads/2024/01/fishZoomOut.mov', stallScene);
 }
 
 
