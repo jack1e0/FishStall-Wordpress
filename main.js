@@ -13,7 +13,7 @@ const toFreezerButton = document.getElementById('clickFreezer');
 const toWhoWeAreButton = document.getElementById('clickWhoWeAre');
 const toManButton = document.getElementById('clickMan');
 
-// Buttons in zoom fish:
+// Buttons in zoom fish
 const squid = document.getElementById('squid');
 const wholeFish = document.getElementById('wholeFish');
 const steak = document.getElementById('steak');
@@ -31,7 +31,21 @@ const state = {
 
 let currState;
 
+const currURL = new URL(window.location.href);
+console.log(currURL.searchParams.get('state'));
+const enteredState = currURL.searchParams.get('state');
+
+
 // Upon enter site
+
+if (enteredState == state.STALL) {
+    stallScene();
+} else if (enteredState == state.FISH) {
+    fishScene();
+} else {
+    enterScene();
+}
+
 
 function enterScene() {
     makeImgVisible('/wp-content/uploads/2024/01/room.png', () => {
@@ -44,6 +58,8 @@ function enterScene() {
     });
 
     currState = state.ROOM;
+    modifyURL(state.ROOM);
+
     backButton.style.display = 'none';
     document.body.style.overflowY = 'scroll';
 
@@ -97,6 +113,8 @@ function stallScene() {
             stallFrontSvg.style.display = 'block';
             currState = state.STALL;
             document.body.style.overflow = 'hidden'; // remove scrolling
+
+            modifyURL(state.STALL);
         
             // Set up buttons
             activeateButtons(toFishButton, toFreezerButton, toWhoWeAreButton);
@@ -104,9 +122,6 @@ function stallScene() {
         }, 200);
     });
 }
-
-enterScene();
-
 
 // Hooking events to buttons
 
@@ -179,9 +194,10 @@ function fishScene() {
     makeImgVisible('/wp-content/uploads/2024/01/fishzoom-1.png');
     stallFrontSvg.style.display = 'none';
     fishZoomSvg.style.display = 'block';
+    deactiveateButtons(toFishButton);
 
     currState = state.FISH;
-    deactiveateButtons(toFishButton);
+    modifyURL(state.FISH);
 }
 
 
@@ -255,5 +271,15 @@ function activeateButtons() {
     });
 }
 
+function modifyURL(newState) {
+    currURL.searchParams.set('state', newState);
+    window.history.replaceState({}, '', currURL);
+}
 
+// Outro transition
+function outroToCart() {
+    videoTransition('/wp-content/uploads/2024/01/transitionToCart.mov', ()=>{window.location.href = 'http://lin-lao-bei-seafood.local/cart/';})
+  }
+  
+wholeFish.addEventListener('click', outroToCart);
 
