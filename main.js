@@ -3,13 +3,24 @@ const vid = background.querySelector('video');
 const stall = document.getElementById('stall');
 const img = stall.querySelector('img');
 
+// SVGs
+const stallFrontSvg = document.getElementById('stallFrontSvg');
+const fishZoomSvg = document.getElementById('fishZoomSvg');
+
+// Buttons in stallfront
 const toFishButton = document.getElementById('clickFish');
 const toFreezerButton = document.getElementById('clickFreezer');
 const toWhoWeAreButton = document.getElementById('clickWhoWeAre');
+const toManButton = document.getElementById('clickMan');
 
-const stallSvg = document.getElementById('stallSvg');
+// Buttons in zoom fish:
+const squid = document.getElementById('squid');
+const wholeFish = document.getElementById('wholeFish');
+const steak = document.getElementById('steak');
+const prawn = document.getElementById('prawn');
+const fillet = document.getElementById('fillet');
 
-
+// Back button
 const backButton = document.getElementById('backButton');
 
 const state = {
@@ -83,7 +94,7 @@ function stallScene() {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             makeImgVisible('/wp-content/uploads/2024/01/stall.png');
-            stallSvg.style.display = 'block';
+            stallFrontSvg.style.display = 'block';
             currState = state.STALL;
             document.body.style.overflow = 'hidden'; // remove scrolling
         
@@ -95,8 +106,66 @@ function stallScene() {
 }
 
 enterScene();
-backButton.addEventListener('click', back);
 
+
+// Hooking events to buttons
+
+backButton.addEventListener('click', back);
+fishZoomButtons();
+toFishButton.addEventListener('click', transitionToFish);
+
+// Hover events for fish zoom buttons
+function fishZoomButtons() {
+    squid.addEventListener('mouseenter', function() {
+        if (currState == state.FISH) {
+            document.getElementById('squidText').style.display = 'block';
+        }
+    });
+      
+    squid.addEventListener('mouseleave', function() {
+        document.getElementById('squidText').style.display = 'none';
+    });
+    
+    wholeFish.addEventListener('mouseenter', function() {
+        if (currState == state.FISH) {
+            document.getElementById('wholeFishText').style.display = 'block';
+        }
+    });
+      
+    wholeFish.addEventListener('mouseleave', function() {
+        document.getElementById('wholeFishText').style.display = 'none';
+    });
+
+    prawn.addEventListener('mouseenter', function() {
+        if (currState == state.FISH) {
+            document.getElementById('prawnText').style.display = 'block';
+        }
+    });
+      
+    prawn.addEventListener('mouseleave', function() {
+        document.getElementById('prawnText').style.display = 'none';
+    });
+
+    steak.addEventListener('mouseenter', function() {
+        if (currState == state.FISH) {
+            document.getElementById('steakText').style.display = 'block';
+        }
+    });
+      
+    steak.addEventListener('mouseleave', function() {
+        document.getElementById('steakText').style.display = 'none';
+    });
+
+    fillet.addEventListener('mouseenter', function() {
+        if (currState == state.FISH) {
+            document.getElementById('filletText').style.display = 'block';
+        }
+    });
+      
+    fillet.addEventListener('mouseleave', function() {
+        document.getElementById('filletText').style.display = 'none';
+    });
+}
 
 // Fish zoom functions
 
@@ -106,11 +175,10 @@ function transitionToFish() {
     }
 }
 
-toFishButton.addEventListener('click', transitionToFish);
-
 function fishScene() {
     makeImgVisible('/wp-content/uploads/2024/01/fishzoom-1.png');
-    stallSvg.style.display = 'none';
+    stallFrontSvg.style.display = 'none';
+    fishZoomSvg.style.display = 'block';
 
     currState = state.FISH;
     deactiveateButtons(toFishButton);
@@ -147,7 +215,8 @@ function back() {
 // General functions
 
 function makeImgVisible(url, func = () => {}) {
-    stallSvg.style.display = 'none';
+    stallFrontSvg.style.display = 'none';
+    fishZoomSvg.style.display = 'none';
     img.onload = () => {
         stall.style.display = 'block';
         vid.style.display = "none"; // hide the vid only when image is ready
